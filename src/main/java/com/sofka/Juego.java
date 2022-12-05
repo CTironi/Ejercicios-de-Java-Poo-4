@@ -1,30 +1,38 @@
 package com.sofka;
 
 public class Juego {
-    public Integer vidas;
+    private Integer vidas;
+    private final Integer vidasIniciales;
+    private static Integer record = 0;
 
     public Juego(Integer vidas) {
         this.vidas = vidas;
+        this.vidasIniciales = vidas;
     }
+
     public void muestraVidasRestantes() {
         System.out.println("Vidas Restantes: " + vidas);
     }
 
-    public static void main(String[] args) {
-
-        Juego juego = new Juego(5);
-
-        juego.muestraVidasRestantes();
-
-        if (juego.vidas > 0) {
-            juego.vidas = juego.vidas - 1;
+    public boolean quitarVida() {
+        vidas = vidas - 1;
+        if (vidas <= 0) {
+            System.out.println("Juego Terminado");
+            return false;
         }
+        return true;
+    }
 
-        juego.muestraVidasRestantes();
+    public void reiniciarPartida() {
+        vidas = vidasIniciales;
+    }
 
-        Juego juego_2 = new Juego(5);
-
-        juego_2.muestraVidasRestantes();
-        juego.muestraVidasRestantes();
+    public void actualizaRecord() {
+        if (vidas == record) {
+            System.out.println("Se alcanzo el record");
+        } else if (vidas > record) {
+            record = vidas;
+            System.out.println("Has batido el record con " + vidas + " vidas");
+        }
     }
 }
